@@ -46,6 +46,7 @@ let answered = false;
 let guess = "";
 let correctguesses = 0;
 let timing = 0;
+let i = 0;
 
 //let intervalID = setInterval(function(){
     //timing++;},1000);
@@ -54,9 +55,8 @@ let timing = 0;
 //console.log(questions[1].quest);
 function rungame(){
 let scope = questions;
-console.log(scope[0].answers[0]);
 //For loop to go through each SET of questions
-for(i=0; i<scope.length;i++){
+let clocktimer = setInterval(function(){
     // reset the trivia container and adding the question
 document.getElementById("triviacontainer").innerHTML = "";
 let questionEl = document.createElement("h1");
@@ -85,19 +85,25 @@ document.querySelectorAll(".buttons").forEach(function (node) {
     node.addEventListener("click",function() {
         guess = node.getAttribute("data-answer");
         answered = true;
-        if(guess === testvalue){
+        document.querySelectorAll(".buttons").forEach(function (beta) {
+            beta.disabled;
+        })
+        if(guess === testvalue && answered === true){
             let correctanswer = document.createElement("h1");
             correctanswer.innerHTML = "Correct Answer";
             document.getElementById("triviacontainer").append(correctanswer);
             correctguesses++;
+            i++
          }
-         else{
+         else if(answered === true){
              let wronganswer = document.createElement("h1");
              wronganswer.innerhtml = "The Correct answer is " + scope[i].answers[1];
+             document.getElementById("triviacontainer").append(wronganswer);
+             i++;
          }
     })
 })
-}
+},13000)
 //After all questions are complete
 document.getElementById("triviacontainer").innerHTML= "";
 let finalscore = document.createElement("h1");
