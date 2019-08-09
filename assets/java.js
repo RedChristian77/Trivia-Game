@@ -1,4 +1,4 @@
-const questions = [
+let questions = [
     question1 = {
         quest : "The armor of Artorias is designed after what Anime?",
         answers : ["Beserk","Claymore","Overlord","Akame Ga Kill"]
@@ -44,37 +44,63 @@ const questions = [
 
 let answered = false;
 let guess = "";
+let correctguesses = 0;
+let timing = 0;
+
+//let intervalID = setInterval(function(){
+    //timing++;},1000);
+
 
 //console.log(questions[1].quest);
 function rungame(){
+let scope = questions;
+console.log(scope[0].answers[0]);
 //For loop to go through each SET of questions
-for(i=0; i<questions.length;i++){
+for(i=0; i<scope.length;i++){
     // reset the trivia container and adding the question
 document.getElementById("triviacontainer").innerHTML = "";
 let questionEl = document.createElement("h1");
-questionEl.innerHTML = questions[i].quest;
+questionEl.innerHTML = scope[i].quest;
 questionEl.setAttribute("class","trivia");
 document.getElementById("triviacontainer").append(questionEl);
 
+console.log(scope[0].answers[0]);
+
+let testvalue = scope[i].answers[0];
 let l = Math.floor(Math.random()*4);
 //randomly places the answers and questions
-for(k=0;k<questions[i].answers.length;k++){
+for(k=0;k<scope[i].answers.length;k++){
 l++;
 if(l>3){
     l=0;
 }
 let answerButton = document.createElement("button");
-answerButton.innerText = questions[i].answers[l];
+answerButton.innerText = scope[i].answers[l];
 answerButton.setAttribute("class","buttons");
+answerButton.setAttribute("data-answer",scope[i].answers[l]);
 document.getElementById("triviacontainer").append(answerButton);
 }
+//giving buttons values
 document.querySelectorAll(".buttons").forEach(function (node) {
     node.addEventListener("click",function() {
-        guess = node.textContent();
-        answered = false;
+        guess = node.getAttribute("data-answer");
+        answered = true;
+        if(guess === testvalue){
+            let correctanswer = document.createElement("h1");
+            correctanswer.innerHTML = "Correct Answer";
+            document.getElementById("triviacontainer").append(correctanswer);
+            correctguesses++;
+         }
+         else{
+             let wronganswer = document.createElement("h1");
+             wronganswer.innerhtml = "The Correct answer is " + scope[i].answers[1];
+         }
     })
 })
-
-//start of while loop for timer
 }
+//After all questions are complete
+document.getElementById("triviacontainer").innerHTML= "";
+let finalscore = document.createElement("h1");
+finalscore.setAttribute("class","trivia");
+finalscore.innerHTML = "Your total Score is: <br>"+correctguesses+" Out of 10";
 };
