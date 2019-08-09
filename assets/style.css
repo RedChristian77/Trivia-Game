@@ -1,0 +1,15 @@
+*{
+    background-color:Black;
+}
+#header{
+    font-family: 'Cormorant SC', serif;
+    text-align:center;
+    font-size:60px;
+    font-weight: bold;
+    color:white;
+}
+#triviacontainer{
+    width:80%;
+    margin:10%;
+    background-color:gray;
+}
