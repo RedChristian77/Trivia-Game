@@ -33,7 +33,7 @@ const questions = [
     },
     question9 = {
         quest : "What covenent's joining location is Ash Lake?",
-        answers : ["Path of the Dragon","Gravelord Servant","Forest Huntr","Chaos Servant"],
+        answers : ["Path of the Dragon","Gravelord Servant","Forest Hunter","Chaos Servant"],
     },
     question10 = {
         quest : "Who is the director of Dark Souls?",
@@ -47,10 +47,34 @@ let guess = "";
 
 //console.log(questions[1].quest);
 function rungame(){
-for(i=0; i<questions.length-1;i++){
-    
-    while(answered === false){
+//For loop to go through each SET of questions
+for(i=0; i<questions.length;i++){
+    // reset the trivia container and adding the question
+document.getElementById("triviacontainer").innerHTML = "";
+let questionEl = document.createElement("h1");
+questionEl.innerHTML = questions[i].quest;
+questionEl.setAttribute("class","trivia");
+document.getElementById("triviacontainer").append(questionEl);
 
-    }
+let l = Math.floor(Math.random()*4);
+//randomly places the answers and questions
+for(k=0;k<questions[i].answers.length;k++){
+l++;
+if(l>3){
+    l=0;
+}
+let answerButton = document.createElement("button");
+answerButton.innerText = questions[i].answers[l];
+answerButton.setAttribute("class","buttons");
+document.getElementById("triviacontainer").append(answerButton);
+}
+document.querySelectorAll(".buttons").forEach(function (node) {
+    node.addEventListener("click",function() {
+        guess = node.textContent();
+        answered = false;
+    })
+})
+
+//start of while loop for timer
 }
 };
